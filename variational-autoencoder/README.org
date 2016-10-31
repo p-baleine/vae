@@ -1,0 +1,15 @@
+#+TITLE: Variational Autoencoder
+
+[[http://arxiv.org/abs/1312.6114][Auto-Encoding Variational Bayes]]を[[http://blog.fastforwardlabs.com/post/148842796218/introducing-variational-autoencoders-in-prose-and][Introducing Variational Autoencoders (in Prose and Code)]]を参考に実装する。
+
+* 概要
+
+- encoderは入力$$x$$を潜在的な表現-hidden codeと呼ばれる-$$z$$にマップする
+- decoderはhidden codeを再構築された入力値$$\tilde{x}$$にマップする
+- 普通のautoencoderは決定的であるのに対し、Variational Autoencoderは確率的である
+  - 確率的encoder$$q_{\phi}(z|x)$$、これは真の(但しintractableな)事後分布$$p(z|x)$$を近似する
+  - 生成的decoder$$p_{\theta}(x|z)$$、これは特定の入力値$$x$$には一切依存しない
+- encoderとdecoderはニューラルネットワークであり、それぞれ調節可能なパラメーター$$\phi$$と$$\theta$$を持っている
+  1. encoderの仕事は与えられた入力に対応する潜在空間次元上の正規事後分布の平均と分散を提供すること
+  2. 潜在変数$$z$$はこの分布からサンプルされる
+  3. decoderの仕事は潜在変数$$z$$を受け取って元のデータ空間上の分布上に転移する

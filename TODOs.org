@@ -1,0 +1,6 @@
+* TODO Variational Autoencoder
+
+* TODO A Recurrent Latent Variable Model for Sequential Data
+
+* TODO VARIATIONAL RECURRENT AUTO-ENCODERS
+
