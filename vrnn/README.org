@@ -1,0 +1,28 @@
+#+TITLE: A Recurrent Latent Variable Model for Sequential Data
+
+[[https://arxiv.org/abs/1506.02216][A Recurrent Latent Variable Model for Sequential Data]]を[[https://github.com/jych/nips2015_vrnn][jych/nips2015_vrnn]]を参考に実装する。
+vanilla LSTMと比較できるようにする。
+可能であればテキストデータで試したい(原論文では音声データと手書きデータで検証している)。
+
+一応[[https://github.com/phreeza/tensorflow-vrnn][実装]]してくれている人がいる(結構分かり易い)。
+サンプルの波形を学習データに用いているらしい…。
+
+* 概要
+
+  - dynamic Bayesian networks(DBN; HMMやKalman filter)では隠れ状態が確率変数で表現されるのに対し、RNNでは内部繊維構造が決定的である
+  - VRNNではrecurrent framworkにVAEを導入する
+  - VRNNではDBNに習って、タイムステップを通した潜在確率変数間の依存性をモデルする
+
+* メモ
+
+  - phi_1_tは$$\varphi_{\tau}^{\rm prior}({\bf h}_{t - 1})$$に対応している
+  - propr_1_tは$$\varphi_{\tau}^{dec}(\varphi_{\tau}^{\bf z}({\bf z}_t), {\bf h}_{t-1})$$に対応してる…いない
+  - phi_1_tはx_tとs_tm1に依存しているけどここの具体的な記述を論文中に見つけられない
+  - 方針
+    1. ２つの実装を参考に波形で実装してみる
+    2. 出力を正規分布から多項分布に切り替えてテキストで動かしてみる
+  - 以下、phreeza/tensorflow-vrnnで使われているサンプルのデータ:
+
+     [[./sample_data.png]]
+
+  - サンプルのデータは(100, 2)で第二要素が全部0になっている、上は第１要素のみ描画している
